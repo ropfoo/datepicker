@@ -2,7 +2,7 @@ import { months, month } from './months';
 
 let currentDate: any;
 
-let day: number;
+let day: number = 1;
 let month: month;
 let year: number;
 
@@ -27,7 +27,7 @@ export const date = (
 };
 
 const updateDate = () => ({
-  date: new Date(year, month.id, 1),
+  date: new Date(year, month.id, day),
 });
 
 const getDaysInMonth = (month: number, year: number) => {
@@ -114,10 +114,19 @@ const generateDateDiv = (yearRange: yearRange) => {
 const generateWeekDiv = () => {
   const weekDiv = document.createElement('div');
 
-  for (let day = 1; day <= getDaysInMonth(month.number, year); day++) {
+  for (
+    let dayCounter = 1;
+    dayCounter <= getDaysInMonth(month.number, year);
+    dayCounter++
+  ) {
     // Day
     const dayDiv = document.createElement('div');
-    const dayContent = document.createTextNode(day.toString());
+    const dayContent = document.createTextNode(dayCounter.toString());
+    dayDiv.addEventListener('click', () => {
+      day = parseInt(dayDiv.innerHTML);
+      currentDate = updateDate();
+      console.log(currentDate);
+    });
     dayDiv.append(dayContent);
     weekDiv.append(dayDiv);
   }
