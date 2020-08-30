@@ -1,4 +1,4 @@
-type month = {
+export type month = {
     id: number,
     nameEN: string,
     nameDE: string,

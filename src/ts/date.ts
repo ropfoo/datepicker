@@ -1,9 +1,14 @@
-import { months } from './months.js'
+import { months, month } from './months'
 
-let month = months[6]
+let month: month
 
-export const date = () => {
+type props = {
+    monthNum?: number,
+    yearNum?: number
+}
 
+export const date = (monthNum = 5) => {
+    month = months[monthNum]
     generateDateDiv()
 }
 
