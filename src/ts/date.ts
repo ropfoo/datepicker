@@ -1,67 +1,74 @@
-import { months, month } from './months';
+import { months, month } from './utils/months';
+import createWeek from './dom/createWeek';
+import createYears, { yearRange } from './dom/createYears';
+
+let dateHTML: any;
 
 let currentDate: any;
 
-let day: number = 1;
-let month: month;
-let year: number;
-
-type props = {
-  monthNum?: number;
-  yearNum?: number;
+export type displayDate = {
+  day: number;
+  month: month;
+  year: number;
 };
 
-type yearRange = {
-  startYear: number;
-  endYear: number;
-};
+let displayDate: displayDate;
 
 export const date = (
-  currentMonthId: number,
-  currentYear: number,
+  dateDiv: HTMLElement | HTMLInputElement | null,
   yearRange: yearRange
 ) => {
-  month = months[currentMonthId];
-  year = currentYear;
+  dateHTML = dateDiv;
+  const today = new Date();
+  displayDate = {
+    day: 1,
+    month: months[today.getMonth()],
+    year: today.getFullYear(),
+  };
+
+  console.log('test', displayDate);
+
   generateDateDiv(yearRange);
 };
 
-const updateDate = () => ({
-  date: new Date(year, month.id, day),
-});
-
-const getDaysInMonth = (month: number, year: number) => {
-  return new Date(year, month, 0).getDate();
+export const updateDate = ({ day, month, year }: displayDate) => {
+  //   if (dateHTML) {
+  //     dateHTML.value = `${day}.${month}.${year}`;
+  //   }
+  return {
+    date: new Date(year, month.id, day),
+  };
 };
 
-const switchMonth = (monthDiv: any, weekDiv: any, direction: string) => {
-  let currentMonthNum = month.id;
-  weekDiv.innerHTML = '';
+const switchMonth = (monthDiv: any, dateDiv: any, direction: string) => {
+  let currentMonthNum = displayDate.month.id;
+  dateDiv.lastChild.remove();
   if (direction === 'next') {
     currentMonthNum++;
     currentMonthNum > 11 && (currentMonthNum = 0);
-    month = months[currentMonthNum];
-    monthDiv.innerHTML = month.nameDE;
+    displayDate.month = months[currentMonthNum];
+    monthDiv.innerHTML = displayDate.month.nameDE;
   } else if (direction === 'prev') {
     currentMonthNum--;
     currentMonthNum < 0 && (currentMonthNum = 11);
-    month = months[currentMonthNum];
-    monthDiv.innerHTML = month.nameDE;
+    displayDate.month = months[currentMonthNum];
+    monthDiv.innerHTML = displayDate.month.nameDE;
   }
 
-  month = months[currentMonthNum];
-  weekDiv.append(generateWeekDiv());
-  console.log(month);
-  currentDate = updateDate();
+  displayDate.month = months[currentMonthNum];
+  dateDiv.append(createWeek(currentDate, displayDate));
+  console.log(displayDate.month);
+  currentDate = updateDate(displayDate);
   console.log(currentDate);
 };
 
 const generateDateDiv = (yearRange: yearRange) => {
-  const weekDiv = generateWeekDiv();
+  const weekDiv = createWeek(currentDate, displayDate);
+  const dateDiv = document.createElement('div');
 
   // Month
   const monthDiv = document.createElement('div');
-  const monthContent = document.createTextNode(month.nameDE);
+  const monthContent = document.createTextNode(displayDate.month.nameDE);
   monthDiv.append(monthContent);
 
   // Next Month
@@ -69,7 +76,7 @@ const generateDateDiv = (yearRange: yearRange) => {
   const nextMonthBtnContent = document.createTextNode('>');
   nextMonthBtn.append(nextMonthBtnContent);
   nextMonthBtn.addEventListener('click', () => {
-    switchMonth(monthDiv, weekDiv, 'next');
+    switchMonth(monthDiv, dateDiv, 'next');
   });
 
   // Prev Month
@@ -77,59 +84,14 @@ const generateDateDiv = (yearRange: yearRange) => {
   const prevMonthBtnContent = document.createTextNode('<');
   prevMonthBtn.append(prevMonthBtnContent);
   prevMonthBtn.addEventListener('click', () => {
-    switchMonth(monthDiv, weekDiv, 'prev');
+    switchMonth(monthDiv, dateDiv, 'prev');
   });
 
-  // Year
-  const yearDiv = document.createElement('div');
-  const yearDropdown = document.createElement('select');
-  for (
-    let selectedYear = yearRange.startYear;
-    selectedYear <= yearRange.endYear;
-    selectedYear++
-  ) {
-    const yearOption = document.createElement('option');
-    yearOption.value = selectedYear.toString();
-    yearOption.innerHTML = selectedYear.toString();
-    yearDropdown.append(yearOption);
-  }
-  yearDropdown.value = yearRange.endYear.toString();
-  yearDropdown.addEventListener('change', (e) => {
-    weekDiv.innerHTML = '';
-    const element = e.currentTarget as HTMLInputElement;
-    year = parseInt(element.value);
-    weekDiv.append(generateWeekDiv());
-    currentDate = updateDate();
-    console.log(currentDate);
-  });
-  yearDiv.append(yearDropdown);
+  const yearDiv = createYears(yearRange, displayDate, currentDate, dateDiv);
 
-  const dateDiv = document.createElement('div');
+  dateDiv.classList.add('datepicker');
   dateDiv.append(yearDiv, prevMonthBtn, monthDiv, nextMonthBtn, weekDiv);
 
   const target = document.getElementById('datepicker');
   document.body.insertBefore(dateDiv, target);
-};
-
-const generateWeekDiv = () => {
-  const weekDiv = document.createElement('div');
-
-  for (
-    let dayCounter = 1;
-    dayCounter <= getDaysInMonth(month.number, year);
-    dayCounter++
-  ) {
-    // Day
-    const dayDiv = document.createElement('div');
-    const dayContent = document.createTextNode(dayCounter.toString());
-    dayDiv.addEventListener('click', () => {
-      day = parseInt(dayDiv.innerHTML);
-      currentDate = updateDate();
-      console.log(currentDate);
-    });
-    dayDiv.append(dayContent);
-    weekDiv.append(dayDiv);
-  }
-
-  return weekDiv;
 };

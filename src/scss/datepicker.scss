@@ -1,0 +1,10 @@
+.datepicker {
+  font-family: sans-serif;
+
+  &__week-section {
+    background-color: lightblue;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    text-align: center;
+  }
+}
