@@ -86,8 +86,8 @@ export const months: month[] = [
   },
   {
     id: 11,
-    nameEN: 'Dezember',
-    nameDE: 'December',
+    nameEN: 'December',
+    nameDE: 'Dezember',
     short: 'Dec',
     number: 12,
   },

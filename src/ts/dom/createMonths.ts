@@ -38,6 +38,7 @@ const createMonths = (
 ) => {
   // Month
   const monthDiv = document.createElement('div');
+  monthDiv.classList.add('datepicker__month-section');
   const monthTitle = document.createElement('p');
   const monthContent = document.createTextNode(displayDate.month.nameDE);
   monthTitle.append(monthContent);

@@ -14,6 +14,7 @@ const createYears = (
 ) => {
   // Year
   const yearDiv = document.createElement('div');
+  yearDiv.classList.add('datepicker__year-section');
   const yearDropdown = document.createElement('select');
   for (
     let selectedYear = yearRange.startYear;

@@ -1,0 +1,70 @@
+@mixin weekdays {
+  background-color: $default-color-background-week;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  text-align: center;
+  padding: 0 $padding;
+}
+
+$padding: 0.5rem;
+$border-radius: 1rem;
+
+.datepicker {
+  background-color: $default-color-background-main;
+  border-radius: $border-radius;
+  font-family: sans-serif;
+  max-width: 350px;
+
+  &__year-section {
+    display: flex;
+    justify-content: center;
+    padding-top: $padding + $padding;
+
+    select {
+      border: none;
+      border-radius: 0.5rem;
+      font-size: 0.9rem;
+      font-weight: bold;
+      padding: 0.5rem 1rem;
+    }
+  }
+
+  &__month-section {
+    display: grid;
+    grid-template-columns: 0.3fr 1fr 0.3fr;
+    padding: $padding;
+    text-align: center;
+
+    font-weight: bold;
+
+    button {
+      font-weight: bold;
+
+      background: none;
+      border: none;
+      cursor: pointer;
+    }
+  }
+
+  &__weekday-section {
+    @include weekdays;
+
+    border-radius: 0 0 $border-radius $border-radius;
+    grid-template-rows: repeat(6, 1fr);
+
+    & > * {
+      cursor: pointer;
+      font-size: 0.9rem;
+      padding: 0.3rem;
+    }
+  }
+
+  &__weekday-name-section {
+    @include weekdays;
+
+    font-weight: bold;
+    font-size: 0.9rem;
+
+    padding: 0 $padding;
+  }
+}

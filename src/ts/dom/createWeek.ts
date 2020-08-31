@@ -2,7 +2,9 @@ import getDaysInMonth from '../utils/getDaysInMonth';
 import { updateDate, displayDate } from '../date';
 
 const dayDiff = (month: number, year: number) => {
-  return new Date(year, month, 1).getDay();
+  return new Date(year, month, 1).getDay() === 0
+    ? 7
+    : new Date(year, month, 1).getDay();
 };
 
 const createWeek = (currentDate: any, { month, year }: displayDate) => {
@@ -22,11 +24,11 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
     weekDaysDiv.append(weekDayText);
   }
 
-  const diff = dayDiff(month.id, year) - 1;
+  const diff = dayDiff(month.id, year);
   console.log(diff);
 
   for (
-    let dayCounter = 1;
+    let dayCounter = 2;
     dayCounter <= getDaysInMonth(month.number, year) + diff;
     dayCounter++
   ) {
