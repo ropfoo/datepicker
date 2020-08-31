@@ -1,5 +1,6 @@
 import { months, month } from './utils/months';
 import createWeek from './dom/createWeek';
+import createMonths from './dom/createMonths';
 import createYears, { yearRange } from './dom/createYears';
 
 let dateHTML: any;
@@ -26,71 +27,28 @@ export const date = (
     year: today.getFullYear(),
   };
 
-  console.log('test', displayDate);
-
   generateDateDiv(yearRange);
 };
 
 export const updateDate = ({ day, month, year }: displayDate) => {
-  //   if (dateHTML) {
-  //     dateHTML.value = `${day}.${month}.${year}`;
-  //   }
+  if (dateHTML) {
+    dateHTML.value = `${day}.${month.number}.${year}`;
+  }
   return {
     date: new Date(year, month.id, day),
   };
 };
 
-const switchMonth = (monthDiv: any, dateDiv: any, direction: string) => {
-  let currentMonthNum = displayDate.month.id;
-  dateDiv.lastChild.remove();
-  if (direction === 'next') {
-    currentMonthNum++;
-    currentMonthNum > 11 && (currentMonthNum = 0);
-    displayDate.month = months[currentMonthNum];
-    monthDiv.innerHTML = displayDate.month.nameDE;
-  } else if (direction === 'prev') {
-    currentMonthNum--;
-    currentMonthNum < 0 && (currentMonthNum = 11);
-    displayDate.month = months[currentMonthNum];
-    monthDiv.innerHTML = displayDate.month.nameDE;
-  }
-
-  displayDate.month = months[currentMonthNum];
-  dateDiv.append(createWeek(currentDate, displayDate));
-  console.log(displayDate.month);
-  currentDate = updateDate(displayDate);
-  console.log(currentDate);
-};
-
 const generateDateDiv = (yearRange: yearRange) => {
-  const weekDiv = createWeek(currentDate, displayDate);
   const dateDiv = document.createElement('div');
+  const weekDiv = createWeek(currentDate, displayDate);
 
-  // Month
-  const monthDiv = document.createElement('div');
-  const monthContent = document.createTextNode(displayDate.month.nameDE);
-  monthDiv.append(monthContent);
-
-  // Next Month
-  const nextMonthBtn = document.createElement('button');
-  const nextMonthBtnContent = document.createTextNode('>');
-  nextMonthBtn.append(nextMonthBtnContent);
-  nextMonthBtn.addEventListener('click', () => {
-    switchMonth(monthDiv, dateDiv, 'next');
-  });
-
-  // Prev Month
-  const prevMonthBtn = document.createElement('button');
-  const prevMonthBtnContent = document.createTextNode('<');
-  prevMonthBtn.append(prevMonthBtnContent);
-  prevMonthBtn.addEventListener('click', () => {
-    switchMonth(monthDiv, dateDiv, 'prev');
-  });
+  const monthDiv = createMonths(displayDate, dateDiv, currentDate);
 
   const yearDiv = createYears(yearRange, displayDate, currentDate, dateDiv);
 
   dateDiv.classList.add('datepicker');
-  dateDiv.append(yearDiv, prevMonthBtn, monthDiv, nextMonthBtn, weekDiv);
+  dateDiv.append(yearDiv, monthDiv, weekDiv);
 
   const target = document.getElementById('datepicker');
   document.body.insertBefore(dateDiv, target);
