@@ -13,7 +13,8 @@ $border-radius: 1rem;
   background-color: $default-color-background-main;
   border-radius: $border-radius;
   font-family: sans-serif;
-  max-width: 350px;
+  min-width: 225px;
+  max-width: 325px;
 
   &__year-section {
     display: flex;
@@ -30,19 +31,21 @@ $border-radius: 1rem;
   }
 
   &__month-section {
+    color: $default-color-background-week;
     display: grid;
     grid-template-columns: 0.3fr 1fr 0.3fr;
+    font-size: 1.2rem;
+    font-weight: bold;
     padding: $padding;
     text-align: center;
 
-    font-weight: bold;
-
     button {
-      font-weight: bold;
-
       background: none;
       border: none;
+      color: $default-color-background-week;
       cursor: pointer;
+      font-weight: bold;
+      outline: none;
     }
   }
 
@@ -52,10 +55,19 @@ $border-radius: 1rem;
     border-radius: 0 0 $border-radius $border-radius;
     grid-template-rows: repeat(6, 1fr);
 
-    & > * {
+    &__day {
+      border-radius: 0.3rem;
       cursor: pointer;
-      font-size: 0.9rem;
-      padding: 0.3rem;
+      font-size: 0.8rem;
+      padding: 0.4rem;
+      transition: 0.1s;
+
+      &:hover {
+        border-radius: 1em;
+
+        background: rgb(226, 226, 226);
+        transition: 0.3s;
+      }
     }
   }
 
@@ -63,7 +75,7 @@ $border-radius: 1rem;
     @include weekdays;
 
     font-weight: bold;
-    font-size: 0.9rem;
+    font-size: 0.8rem;
 
     padding: 0 $padding;
   }

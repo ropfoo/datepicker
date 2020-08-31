@@ -34,22 +34,25 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
   ) {
     // Day
     const dayDiv = document.createElement('div');
-    const dayContent = document.createTextNode((dayCounter - diff).toString());
 
-    dayDiv.addEventListener('click', () => {
+    const dayContentDiv = document.createElement('div');
+    dayContentDiv.classList.add('datepicker__weekday-section__day');
+
+    const dayContent = document.createTextNode((dayCounter - diff).toString());
+    dayContentDiv.append(dayContent);
+
+    dayContentDiv.addEventListener('click', () => {
       //day = parseInt(dayDiv.innerHTML);
-      let day = parseInt(dayDiv.innerHTML);
+      let day = parseInt(dayContentDiv.innerHTML);
 
       currentDate = updateDate({ day, month, year });
       console.log(currentDate);
     });
 
-    console.log(diff);
-
     if (dayCounter <= diff) {
       dayDiv.append(document.createElement('div'));
     } else {
-      dayDiv.append(dayContent);
+      dayDiv.append(dayContentDiv);
     }
     weekDiv.append(dayDiv);
   }
