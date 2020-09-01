@@ -11,15 +11,16 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
   const weekDivWrapper = document.createElement('div');
 
   const weekDiv = document.createElement('div');
-  weekDiv.classList.add('datepicker__weekday-section');
+  weekDiv.classList.add('datepicker__weekday-section', 'rf-dp');
 
   const weekDaysDiv = document.createElement('div');
-  weekDaysDiv.classList.add('datepicker__weekday-name-section');
+  weekDaysDiv.classList.add('datepicker__weekday-name-section', 'rf-dp');
 
   const weekDaysDE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
 
   for (let weekDay = 0; weekDay < weekDaysDE.length; weekDay++) {
     const weekDayText = document.createElement('p');
+    weekDayText.classList.add('rf-dp');
     weekDayText.innerHTML = weekDaysDE[weekDay];
     weekDaysDiv.append(weekDayText);
   }
@@ -51,6 +52,7 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
 
     if (dayCounter <= diff) {
       dayDiv.append(document.createElement('div'));
+      dayDiv.classList.add('rf-dp');
     } else {
       dayDiv.append(dayContentDiv);
     }

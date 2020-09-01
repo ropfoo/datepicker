@@ -14,8 +14,10 @@ const createYears = (
 ) => {
   // Year
   const yearDiv = document.createElement('div');
-  yearDiv.classList.add('datepicker__year-section');
+  yearDiv.classList.add('datepicker__year-section', 'rf-dp');
   const yearDropdown = document.createElement('select');
+  yearDropdown.classList.add('rf-dp');
+
   for (
     let selectedYear = yearRange.startYear;
     selectedYear <= yearRange.endYear;

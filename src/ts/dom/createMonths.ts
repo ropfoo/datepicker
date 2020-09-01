@@ -38,13 +38,16 @@ const createMonths = (
 ) => {
   // Month
   const monthDiv = document.createElement('div');
-  monthDiv.classList.add('datepicker__month-section');
+  monthDiv.classList.add('datepicker__month-section', 'rf-dp');
   const monthTitle = document.createElement('p');
+  monthTitle.classList.add('rf-dp');
+
   const monthContent = document.createTextNode(displayDate.month.nameDE);
   monthTitle.append(monthContent);
 
   // Next Month
   const nextMonthBtn = document.createElement('button');
+  nextMonthBtn.classList.add('rf-dp');
   const nextMonthBtnContent = document.createTextNode('>');
   nextMonthBtn.append(nextMonthBtnContent);
   nextMonthBtn.addEventListener('click', () => {
@@ -53,6 +56,7 @@ const createMonths = (
 
   // Prev Month
   const prevMonthBtn = document.createElement('button');
+  prevMonthBtn.classList.add('rf-dp');
   const prevMonthBtnContent = document.createTextNode('<');
   prevMonthBtn.append(prevMonthBtnContent);
   prevMonthBtn.addEventListener('click', () => {
