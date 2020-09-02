@@ -20,6 +20,7 @@ export const date = (
   yearRange: yearRange
 ) => {
   dateHTML = dateDiv;
+  dateHTML instanceof HTMLInputElement && (dateHTML.autocomplete = 'off');
   const today = new Date();
   displayDate = {
     day: 1,
@@ -53,7 +54,7 @@ const generateDateDiv = (yearRange: yearRange) => {
   dateDiv.id = 'rf-datepicker';
   dateDiv.append(yearDiv, monthDiv, weekDiv);
 
-  const target = document.getElementById('datepicker');
+  const target: HTMLElement | null = document.getElementById('datepicker');
 
   target?.addEventListener('click', () => {
     console.log(target.offsetTop);
@@ -62,10 +63,8 @@ const generateDateDiv = (yearRange: yearRange) => {
   });
 
   document.addEventListener('click', (e) => {
-    //const src = e.srcElement;
     const target: any = e.target;
     console.log(target);
-    //console.log(src instanceof HTMLInputElement);
     if (target.id === 'datepicker' || target.classList.contains('rf-dp')) {
       console.log('trigger');
     } else {
