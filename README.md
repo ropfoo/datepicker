@@ -1,4 +1,5 @@
 # 📅 datepicker
+<p align="center"><img width="200" src="/demo/sample01.png" alt="sample image 01"></p>
 
 ## Upcoming Features
 
