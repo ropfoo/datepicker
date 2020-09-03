@@ -57,19 +57,14 @@ const generateDateDiv = (yearRange: yearRange) => {
   const target: HTMLElement | null = document.getElementById('datepicker');
 
   target?.addEventListener('click', () => {
-    console.log(target.offsetTop);
     dateDiv.style.display = 'inline';
     dateDiv.style.top = target.offsetTop + 25 + 'px';
   });
 
   document.addEventListener('click', (e) => {
     const target: any = e.target;
-    console.log(target);
-    if (target.id === 'datepicker' || target.classList.contains('rf-dp')) {
-      console.log('trigger');
-    } else {
-      dateDiv.style.display = 'none';
-    }
+    !(target.id === 'datepicker' || target.classList.contains('rf-dp')) &&
+      (dateDiv.style.display = 'none');
   });
 
   document.body.insertBefore(dateDiv, target);

@@ -5,4 +5,14 @@ const dateDiv: HTMLElement | HTMLInputElement | null = document.getElementById(
   'datepicker'
 );
 
-date(dateDiv, { startYear: 1930, endYear: 2020 });
+let options = {
+  yearRange: [1930, 2020],
+};
+
+dateDiv?.dataset.datepicker &&
+  (options = JSON.parse(dateDiv?.dataset.datepicker));
+
+date(dateDiv, {
+  startYear: options.yearRange[0],
+  endYear: options.yearRange[1],
+});
