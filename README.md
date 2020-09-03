@@ -17,7 +17,7 @@
 
 More features coming soon!
 
-## Advanced usage
+## Advanced Usage
 
 You are free to customize the source code.
 To do run it on webpacks live server use:
