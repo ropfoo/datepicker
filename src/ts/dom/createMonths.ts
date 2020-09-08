@@ -1,14 +1,23 @@
-import { displayDate } from '../date';
+import { displayDate, currentDate } from '../date';
 import { months } from '../utils/months';
 import createWeek from './createWeek';
 import { updateDate } from '../date';
+
+/**
+ * Switches between months
+ * @param {string} direction - navigation direction ('next' / 'prev')
+ * @param {any} monthTitle - DOM month title element
+ * @param {any} dateDiv - DOM date div
+ * @param {displayDate} displayDate - object containing day, month, year
+ * @param {currentDate} currentDate - object containing the current date
+ */
 
 const switchMonth = (
   direction: string,
   monthTitle: any,
   dateDiv: any,
   displayDate: displayDate,
-  currentDate: any
+  currentDate: currentDate
 ) => {
   let currentMonthNum = displayDate.month.id;
   dateDiv.lastChild.remove();
@@ -26,16 +35,14 @@ const switchMonth = (
   monthTitle.innerHTML = displayDate.month.nameDE;
   displayDate.month = months[currentMonthNum];
   dateDiv.append(createWeek(currentDate, displayDate));
-  console.log(displayDate.month);
   currentDate = updateDate(displayDate);
-  console.log(currentDate);
 };
 
 const createMonths = (
   displayDate: displayDate,
   dateDiv: any,
-  currentDate: any
-) => {
+  currentDate: currentDate
+): HTMLDivElement => {
   // Month
   const monthDiv = document.createElement('div');
   monthDiv.classList.add('datepicker__month-section', 'rf-dp');

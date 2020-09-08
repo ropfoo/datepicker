@@ -1,5 +1,5 @@
 import getDaysInMonth from '../utils/getDaysInMonth';
-import { updateDate, displayDate } from '../date';
+import { updateDate, displayDate, currentDate } from '../date';
 
 const dayDiff = (month: number, year: number) => {
   return new Date(year, month, 1).getDay() === 0
@@ -7,7 +7,10 @@ const dayDiff = (month: number, year: number) => {
     : new Date(year, month, 1).getDay();
 };
 
-const createWeek = (currentDate: any, { month, year }: displayDate) => {
+const createWeek = (
+  currentDate: currentDate,
+  { month, year }: displayDate
+): HTMLDivElement => {
   const weekDivWrapper = document.createElement('div');
 
   const weekDiv = document.createElement('div');
@@ -24,9 +27,7 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
     weekDayText.innerHTML = weekDaysDE[weekDay];
     weekDaysDiv.append(weekDayText);
   }
-
   const diff = dayDiff(month.id, year);
-  console.log(diff);
 
   for (
     let dayCounter = 2;
@@ -43,11 +44,8 @@ const createWeek = (currentDate: any, { month, year }: displayDate) => {
     dayContentDiv.append(dayContent);
 
     dayContentDiv.addEventListener('click', () => {
-      //day = parseInt(dayDiv.innerHTML);
       let day = parseInt(dayContentDiv.innerHTML);
-
       currentDate = updateDate({ day, month, year });
-      console.log(currentDate);
     });
 
     if (dayCounter <= diff) {

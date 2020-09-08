@@ -5,7 +5,10 @@ import createYears, { yearRange } from './dom/createYears';
 
 let dateHTML: HTMLElement | HTMLInputElement | null;
 
-let currentDate: any;
+export interface currentDate {
+  date: Date;
+}
+let currentDate: currentDate;
 
 export type displayDate = {
   day: number;
@@ -22,10 +25,11 @@ export const date = (
   dateHTML = dateDiv;
   dateHTML instanceof HTMLInputElement && (dateHTML.autocomplete = 'off');
   const today = new Date();
+  const initDatepickerDay = new Date(yearRange.endYear, today.getMonth(), 1);
   displayDate = {
     day: 1,
-    month: months[today.getMonth()],
-    year: today.getFullYear(),
+    month: months[initDatepickerDay.getMonth()],
+    year: initDatepickerDay.getFullYear(),
   };
 
   generateDateDiv(yearRange);
