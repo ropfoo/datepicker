@@ -53,7 +53,7 @@ const createMonths = (
   monthTitle.append(monthContent);
 
   // Next Month
-  const nextMonthBtn = document.createElement('button');
+  const nextMonthBtn = document.createElement('div');
   nextMonthBtn.classList.add('rf-dp');
   const nextMonthBtnContent = document.createTextNode('>');
   nextMonthBtn.append(nextMonthBtnContent);

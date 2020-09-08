@@ -20,7 +20,7 @@ const toggleVisibility = (
     element.classList.remove('fade-out');
     element.classList.add('fade-in');
     setTimeout(() => {
-      element.style.display = 'inline';
+      element.style.display = 'block';
     }, duration);
   }
 };

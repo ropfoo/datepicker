@@ -21,7 +21,8 @@ let displayDate: displayDate;
 
 export const date = (
   dateDiv: HTMLElement | HTMLInputElement | null,
-  yearRange: yearRange
+  yearRange: yearRange,
+  customTopOffset: number
 ) => {
   dateHTML = dateDiv;
   dateHTML instanceof HTMLInputElement && (dateHTML.autocomplete = 'off');
@@ -33,7 +34,7 @@ export const date = (
     year: initDatepickerDay.getFullYear(),
   };
 
-  generateDateDiv(yearRange);
+  generateDateDiv(yearRange, customTopOffset);
 };
 
 export const updateDate = ({ day, month, year }: displayDate) => {
@@ -47,7 +48,7 @@ export const updateDate = ({ day, month, year }: displayDate) => {
   };
 };
 
-const generateDateDiv = (yearRange: yearRange) => {
+const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {
   const dateDiv = document.createElement('div');
 
   const weekDiv = createWeek(currentDate, displayDate);
@@ -62,7 +63,7 @@ const generateDateDiv = (yearRange: yearRange) => {
 
   target?.addEventListener('click', () => {
     toggleVisibility(dateDiv, true, 10);
-    dateDiv.style.top = target.offsetTop + 25 + 'px';
+    dateDiv.style.top = target.offsetTop + customTopOffset + 'px';
   });
 
   document.addEventListener('click', (e) => {
