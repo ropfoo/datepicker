@@ -73,6 +73,6 @@ const generateDateDiv = (yearRange: yearRange) => {
 
   //document.body.insertBefore(dateDiv, target);
   //document.body.appendChild(dateDiv);
-  const targetParent = target?.parentElement;
-  targetParent?.appendChild(dateDiv);
+  //const targetParent = target?.parentElement;
+  document.body.appendChild(dateDiv);
 };
