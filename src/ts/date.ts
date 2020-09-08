@@ -1,4 +1,5 @@
 import { months, month } from './utils/months';
+import toggleVisibility from './utils/toggleVisibility';
 import createWeek from './dom/createWeek';
 import createMonths from './dom/createMonths';
 import createYears, { yearRange } from './dom/createYears';
@@ -61,14 +62,14 @@ const generateDateDiv = (yearRange: yearRange) => {
   const target: HTMLElement | null = document.getElementById('datepicker');
 
   target?.addEventListener('click', () => {
-    dateDiv.style.display = 'inline';
+    toggleVisibility(dateDiv, true, 10);
     dateDiv.style.top = target.offsetTop + 25 + 'px';
   });
 
   document.addEventListener('click', (e) => {
     const target: any = e.target;
     !(target.id === 'datepicker' || target.classList.contains('rf-dp')) &&
-      (dateDiv.style.display = 'none');
+      toggleVisibility(dateDiv, false, 300);
   });
 
   document.body.insertBefore(dateDiv, target);

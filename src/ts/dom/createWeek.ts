@@ -1,6 +1,13 @@
 import getDaysInMonth from '../utils/getDaysInMonth';
 import { updateDate, displayDate, currentDate } from '../date';
 
+/**
+ * return number of day
+ * if day is sunday (0): return 7 instead
+ * else: return number of the day
+ * @param month
+ * @param year
+ */
 const dayDiff = (month: number, year: number) => {
   return new Date(year, month, 1).getDay() === 0
     ? 7
