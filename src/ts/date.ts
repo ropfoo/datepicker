@@ -49,10 +49,9 @@ export const updateDate = ({ day, month, year }: displayDate) => {
 
 const generateDateDiv = (yearRange: yearRange) => {
   const dateDiv = document.createElement('div');
+
   const weekDiv = createWeek(currentDate, displayDate);
-
   const monthDiv = createMonths(displayDate, dateDiv, currentDate);
-
   const yearDiv = createYears(yearRange, displayDate, currentDate, dateDiv);
 
   dateDiv.classList.add('datepicker', 'rf-dp');
@@ -72,5 +71,8 @@ const generateDateDiv = (yearRange: yearRange) => {
       toggleVisibility(dateDiv, false, 300);
   });
 
-  document.body.insertBefore(dateDiv, target);
+  //document.body.insertBefore(dateDiv, target);
+  //document.body.appendChild(dateDiv);
+  const targetParent = target?.parentElement;
+  targetParent?.appendChild(dateDiv);
 };
