@@ -64,6 +64,7 @@ const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {
   target?.addEventListener('click', () => {
     toggleVisibility(dateDiv, true, 10);
     dateDiv.style.top = target.offsetTop + customTopOffset + 'px';
+    dateDiv.style.left = target.offsetLeft + 'px';
   });
 
   document.addEventListener('click', (e) => {

@@ -62,7 +62,7 @@ const createMonths = (
   });
 
   // Prev Month
-  const prevMonthBtn = document.createElement('button');
+  const prevMonthBtn = document.createElement('div');
   prevMonthBtn.classList.add('rf-dp');
   const prevMonthBtnContent = document.createTextNode('<');
   prevMonthBtn.append(prevMonthBtnContent);
