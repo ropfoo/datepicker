@@ -36,7 +36,7 @@ const createYears = (
       displayDate.year = parseInt(element.value);
       dateDiv.append(createWeek(currentDate, displayDate));
       currentDate = updateDate(displayDate);
-      Array.from(yearDropdown.children).forEach((option) => {
+      Array.from(yearDropdown.children).forEach((option: any) => {
         option.classList.add('rf-dp');
       });
     }

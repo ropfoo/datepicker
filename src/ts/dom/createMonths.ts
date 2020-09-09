@@ -56,6 +56,7 @@ const createMonths = (
   const nextMonthBtn = document.createElement('div');
   nextMonthBtn.classList.add('rf-dp');
   const nextMonthBtnContent = document.createTextNode('>');
+  nextMonthBtn.classList.add('datepicker__month-section__btn');
   nextMonthBtn.append(nextMonthBtnContent);
   nextMonthBtn.addEventListener('click', () => {
     switchMonth('next', monthTitle, dateDiv, displayDate, currentDate);
@@ -66,6 +67,7 @@ const createMonths = (
   prevMonthBtn.classList.add('rf-dp');
   const prevMonthBtnContent = document.createTextNode('<');
   prevMonthBtn.append(prevMonthBtnContent);
+  prevMonthBtn.classList.add('datepicker__month-section__btn');
   prevMonthBtn.addEventListener('click', () => {
     switchMonth('prev', monthTitle, dateDiv, displayDate, currentDate);
   });
