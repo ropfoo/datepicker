@@ -21,8 +21,8 @@ let options: options = {
 dateDiv?.dataset.datepicker &&
   (options = JSON.parse(dateDiv?.dataset.datepicker));
 
-console.log(options);
-getJSONfromHTMLdata('yearRange:[1930, 2009], customTopOffset: 30');
+//console.log(options);
+getJSONfromHTMLdata('yearRange: 1930-2009, customTopOffset: 30, language: EN');
 
 date(
   dateDiv,
