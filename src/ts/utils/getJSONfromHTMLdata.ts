@@ -1,30 +1,47 @@
-import removeSpaceFromString from './removeSpaceFromString';
+import {
+  removeSpaceFromString,
+  convertStringToArrayByDash,
+} from './formatting';
 
-const convertToArray = (value: String) => {
-  return value.replace(/-/, ',');
+/**
+ * Uses HTML data property string an converts it to JSON
+ * @param {String} dataContent - data from html property
+ *
+ */
+const getJSONfromHTMLdata = (dataContent: String) => {
+  console.log(dataContent);
+  const JSONArray = createPropertyArray(dataContent);
+  const obj = JSONArray.reduce((result: any, current: any) => {
+    return Object.assign(result, current);
+  });
+  const objJSON = JSON.stringify(obj);
+  console.log(obj);
+
+  console.log(objJSON);
+  return objJSON;
 };
 
-const getJSONfromHTMLdata = (dataContent: String) => {
-  // console.log(dataContent);
-  const content = dataContent.split(',');
+const createPropertyArray = (dataContent: String) => {
   const JSONContentArray: any = [];
+  const content = dataContent.split(',');
   content.forEach((property: any) => {
     const propertyArray = property.split(':');
-    const propertyName = removeSpaceFromString(`"${propertyArray[0]}"`);
+    const propertyName = removeSpaceFromString(`${propertyArray[0]}`);
 
     const propertyValue =
       parseInt(propertyArray[1]) || propertyArray[1].includes('-')
         ? parseInt(propertyArray[1]) && !propertyArray[1].includes('-')
           ? parseInt(propertyArray[1])
-          : removeSpaceFromString(convertToArray(propertyArray[1]))
+          : convertStringToArrayByDash(propertyArray[1])
         : removeSpaceFromString(propertyArray[1]);
 
-    // console.log(propertyName);
-    property = { propertyName: propertyValue };
+    property = {};
+    property[`${propertyName}`] = propertyValue;
+    console.log(property);
     JSONContentArray.push(property);
   });
 
-  console.log(JSONContentArray);
+  return JSONContentArray;
 };
 
 export default getJSONfromHTMLdata;
