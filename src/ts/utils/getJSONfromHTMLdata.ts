@@ -6,7 +6,7 @@ import {
 /**
  * Uses HTML data property string an converts it to JSON
  * @param {String} dataContent - data from html property
- *
+ * @returns {JSON} - data reformatted to JSON
  */
 const getJSONfromHTMLdata = (dataContent: String) => {
   console.log(dataContent);
@@ -21,6 +21,11 @@ const getJSONfromHTMLdata = (dataContent: String) => {
   return objJSON;
 };
 
+/**
+ * Creates Array containing all properties as single entry
+ * @param {String} dataContent
+ * @returns {Array} - Array containing all properties
+ */
 const createPropertyArray = (dataContent: String) => {
   const JSONContentArray: any = [];
   const content = dataContent.split(',');
@@ -45,5 +50,3 @@ const createPropertyArray = (dataContent: String) => {
 };
 
 export default getJSONfromHTMLdata;
-
-// yearRange: [1930,2009] => "yearRange": [1930,2009]
