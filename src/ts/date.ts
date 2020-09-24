@@ -19,6 +19,12 @@ export type displayDate = {
 
 let displayDate: displayDate;
 
+/**
+ *
+ * @param dateDiv
+ * @param yearRange
+ * @param customTopOffset
+ */
 export const date = (
   dateDiv: HTMLElement | HTMLInputElement | null,
   yearRange: yearRange,
@@ -62,7 +68,7 @@ const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {
   const target: HTMLElement | null = document.getElementById('datepicker');
 
   target?.addEventListener('click', () => {
-    toggleVisibility(dateDiv, true, 10);
+    toggleVisibility(dateDiv, true, 50);
     dateDiv.style.top = target.offsetTop + customTopOffset + 'px';
     dateDiv.style.left = target.offsetLeft + 'px';
   });
@@ -70,12 +76,9 @@ const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {
   document.addEventListener('click', (e) => {
     const target: any = e.target;
     !(target.id === 'datepicker' || target.classList.contains('rf-dp')) &&
-      toggleVisibility(dateDiv, false, 300);
+      toggleVisibility(dateDiv, false, 50);
   });
 
-  //document.body.insertBefore(dateDiv, target);
-  //document.body.appendChild(dateDiv);
   const targetParent = target?.parentElement;
   targetParent?.appendChild(dateDiv);
-  //document.body.appendChild(dateDiv);
 };

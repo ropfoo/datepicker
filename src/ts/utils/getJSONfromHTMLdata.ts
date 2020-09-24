@@ -10,7 +10,7 @@ import {
  */
 const getJSONfromHTMLdata = (dataContent: String) => {
   console.log(dataContent);
-  const JSONArray = createPropertyArray(dataContent);
+  const JSONArray: Object[] = createPropertyArray(dataContent);
   const obj = JSONArray.reduce((result: any, current: any) => {
     return Object.assign(result, current);
   });
@@ -26,8 +26,8 @@ const getJSONfromHTMLdata = (dataContent: String) => {
  * @param {String} dataContent
  * @returns {Array} - Array containing all properties
  */
-const createPropertyArray = (dataContent: String) => {
-  const JSONContentArray: any = [];
+const createPropertyArray = (dataContent: String): Object[] => {
+  const JSONContentArray: Object[] = [];
   const content = dataContent.split(',');
   content.forEach((property: any) => {
     const propertyArray = property.split(':');
@@ -40,10 +40,10 @@ const createPropertyArray = (dataContent: String) => {
           : convertStringToArrayByDash(propertyArray[1])
         : removeSpaceFromString(propertyArray[1]);
 
-    property = {};
-    property[`${propertyName}`] = propertyValue;
+    const propertyObject: any = {};
+    propertyObject[`${propertyName}`] = propertyValue;
     console.log(property);
-    JSONContentArray.push(property);
+    JSONContentArray.push(propertyObject);
   });
 
   return JSONContentArray;
