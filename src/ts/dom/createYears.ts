@@ -47,7 +47,7 @@ const createYears = (
       const element = e.currentTarget as HTMLInputElement;
       displayDate.year = parseInt(element.value);
       dateDiv.append(createWeek(currentDate, displayDate));
-      currentDate = updateDate(displayDate);
+      currentDate = updateDate(displayDate.format, displayDate);
       // adds 'rf-dp' class to all option elements
       Array.from(yearDropdown.children).forEach((option: any) => {
         option.classList.add('rf-dp');

@@ -15,6 +15,7 @@ export type displayDate = {
   day: number;
   month: month;
   year: number;
+  format: String;
 };
 
 let displayDate: displayDate;
@@ -28,7 +29,8 @@ let displayDate: displayDate;
 export const date = (
   dateDiv: HTMLElement | HTMLInputElement | null,
   yearRange: yearRange,
-  customTopOffset: number
+  customTopOffset: number,
+  format: String
 ) => {
   dateHTML = dateDiv;
   dateHTML instanceof HTMLInputElement && (dateHTML.autocomplete = 'off');
@@ -38,20 +40,37 @@ export const date = (
     day: 1,
     month: months[initDatepickerDay.getMonth()],
     year: initDatepickerDay.getFullYear(),
+    format: format,
   };
 
   generateDateDiv(yearRange, customTopOffset);
 };
 
-export const updateDate = ({ day, month, year }: displayDate) => {
+export const updateDate = (format: String, displayDate: displayDate) => {
   if (dateHTML instanceof HTMLInputElement) {
-    dateHTML.value = `${day}.${month.number}.${year}`;
+    console.log(formatDate(format, displayDate));
+
+    dateHTML.value = formatDate(format, displayDate);
   } else if (dateHTML instanceof HTMLElement) {
-    dateHTML.innerHTML = `${day}.${month.number}.${year}`;
+    dateHTML.innerHTML = `${displayDate.day}.${displayDate.month.number}.${displayDate.year}`;
   }
   return {
-    date: new Date(year, month.id, day),
+    date: new Date(displayDate.year, displayDate.month.id, displayDate.day),
   };
+};
+
+const formatDate = (
+  format: String,
+  { day, month, year }: displayDate
+): string => {
+  switch (format) {
+    case 'dd.mm.yy':
+      return `${day}.${month.number}.${year}`;
+    case 'yy.mm.dd':
+      return `${year}.${month.number}.${day}`;
+    default:
+      return `${day}.${month.number}.${year}`;
+  }
 };
 
 const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {

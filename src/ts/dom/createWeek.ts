@@ -16,7 +16,7 @@ const dayDiff = (month: number, year: number) => {
 
 const createWeek = (
   currentDate: currentDate,
-  { month, year }: displayDate
+  displayDate: displayDate
 ): HTMLDivElement => {
   const weekDivWrapper = document.createElement('div');
 
@@ -34,11 +34,12 @@ const createWeek = (
     weekDayText.innerHTML = weekDaysDE[weekDay];
     weekDaysDiv.append(weekDayText);
   }
-  const diff = dayDiff(month.id, year);
+  const diff = dayDiff(displayDate.month.id, displayDate.year);
 
   for (
     let dayCounter = 2;
-    dayCounter <= getDaysInMonth(month.number, year) + diff;
+    dayCounter <=
+    getDaysInMonth(displayDate.month.number, displayDate.year) + diff;
     dayCounter++
   ) {
     // Day
@@ -52,7 +53,7 @@ const createWeek = (
 
     dayContentDiv.addEventListener('click', () => {
       let day = parseInt(dayContentDiv.innerHTML);
-      currentDate = updateDate({ day, month, year });
+      currentDate = updateDate(displayDate.format, displayDate);
     });
 
     if (dayCounter <= diff) {

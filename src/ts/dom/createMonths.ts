@@ -35,7 +35,7 @@ const switchMonth = (
   monthTitle.innerHTML = displayDate.month.nameDE;
   displayDate.month = months[currentMonthNum];
   dateDiv.append(createWeek(currentDate, displayDate));
-  currentDate = updateDate(displayDate);
+  currentDate = updateDate(displayDate.format, displayDate);
 };
 
 const createMonths = (
