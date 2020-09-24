@@ -18,12 +18,6 @@ let options: options = {
   language: 'EN',
 };
 
-/*
-dateDiv?.dataset.datepicker &&
-  (options = JSON.parse(dateDiv?.dataset.datepicker));
-
-  */
-//console.log(options);
 dateDiv?.dataset.datepicker &&
   (options = JSON.parse(getJSONfromHTMLdata(dateDiv?.dataset.datepicker)));
 
