@@ -4,7 +4,6 @@
 ## Upcoming Features
 
 - Themes
-- HTML inline customization
 
 ## Simple Usage
 
@@ -14,6 +13,23 @@
 ```html
 <input id="datepicker" />
 ```
+
+### Options
+
+To configure the datepicker, add the HTML parameter *data-datepicker*
+
+```html
+<input id="datepicker" data-datepicker='yearRange: 1930-2020, format: dd.mm.yy' /> 
+```
+
+| Attribute        | Description           | Example  |
+| ------------- |-------------| -----|
+| **yearRange**      | the range of years the user can select from | *yearRange: 2000-2005* |
+| **language**      | language of the datepicker. Currently supporting: *EN*, *DE*      |   *language: EN* |
+| **customTopOffset**| to add some offset to the input field     |    *customTopOffset: 30* |
+| **format**| format of the date. Currently supporting: *dd.mm.yy*, *yy.mm.dd*      |    *format: dd.mm.yy* |
+
+
 
 More features coming soon!
 
