@@ -11,13 +11,13 @@ import { updateDate } from '../date';
  * @param {displayDate} displayDate - object containing day, month, year
  * @param {currentDate} currentDate - object containing the current date
  */
-
 const switchMonth = (
   direction: string,
   monthTitle: any,
   dateDiv: any,
   displayDate: displayDate,
-  currentDate: currentDate
+  currentDate: currentDate,
+  language: String
 ) => {
   let currentMonthNum = displayDate.month.id;
   dateDiv.lastChild.remove();
@@ -25,23 +25,40 @@ const switchMonth = (
     currentMonthNum++;
     currentMonthNum > 11 && (currentMonthNum = 0);
     displayDate.month = months[currentMonthNum];
-    monthTitle.innerHTML = displayDate.month.nameDE;
+    monthTitle.innerHTML = getMonthLanguage(language, displayDate);
   } else if (direction === 'prev') {
     currentMonthNum--;
     currentMonthNum < 0 && (currentMonthNum = 11);
     displayDate.month = months[currentMonthNum];
-    monthTitle.innerHTML = displayDate.month.nameDE;
+    monthTitle.innerHTML = getMonthLanguage(language, displayDate);
   }
-  monthTitle.innerHTML = displayDate.month.nameDE;
+  monthTitle.innerHTML = getMonthLanguage(language, displayDate);
   displayDate.month = months[currentMonthNum];
-  dateDiv.append(createWeek(currentDate, displayDate));
+  dateDiv.append(createWeek(currentDate, displayDate, language));
   currentDate = updateDate(displayDate.format, displayDate);
+};
+
+/**
+ * Returns month in selected languge
+ * @param {String} language
+ * @param {displayDate} displayDate
+ */
+const getMonthLanguage = (language: String, displayDate: displayDate) => {
+  switch (language) {
+    case 'EN':
+      return displayDate.month.nameEN;
+    case 'DE':
+      return displayDate.month.nameDE;
+    default:
+      return displayDate.month.nameEN;
+  }
 };
 
 const createMonths = (
   displayDate: displayDate,
   dateDiv: any,
-  currentDate: currentDate
+  currentDate: currentDate,
+  language: String
 ): HTMLDivElement => {
   // Month
   const monthDiv = document.createElement('div');
@@ -59,7 +76,14 @@ const createMonths = (
   nextMonthBtn.classList.add('datepicker__month-section__btn');
   nextMonthBtn.append(nextMonthBtnContent);
   nextMonthBtn.addEventListener('click', () => {
-    switchMonth('next', monthTitle, dateDiv, displayDate, currentDate);
+    switchMonth(
+      'next',
+      monthTitle,
+      dateDiv,
+      displayDate,
+      currentDate,
+      language
+    );
   });
 
   // Prev Month
@@ -69,7 +93,14 @@ const createMonths = (
   prevMonthBtn.append(prevMonthBtnContent);
   prevMonthBtn.classList.add('datepicker__month-section__btn');
   prevMonthBtn.addEventListener('click', () => {
-    switchMonth('prev', monthTitle, dateDiv, displayDate, currentDate);
+    switchMonth(
+      'prev',
+      monthTitle,
+      dateDiv,
+      displayDate,
+      currentDate,
+      language
+    );
   });
   monthDiv.append(prevMonthBtn, monthTitle, nextMonthBtn);
   return monthDiv;

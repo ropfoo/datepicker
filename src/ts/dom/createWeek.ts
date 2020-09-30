@@ -16,7 +16,8 @@ const dayDiff = (month: number, year: number) => {
 
 const createWeek = (
   currentDate: currentDate,
-  displayDate: displayDate
+  displayDate: displayDate,
+  language: String
 ): HTMLDivElement => {
   const weekDivWrapper = document.createElement('div');
 
@@ -27,11 +28,21 @@ const createWeek = (
   weekDaysDiv.classList.add('datepicker__weekday-name-section', 'rf-dp');
 
   const weekDaysDE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
+  const weekDaysEN = ['Mo', 'Tue', 'Wed', 'Thu', 'Fr', 'Sa', 'Su'];
 
-  for (let weekDay = 0; weekDay < weekDaysDE.length; weekDay++) {
+  for (let weekDay = 0; weekDay < 7; weekDay++) {
     const weekDayText = document.createElement('p');
     weekDayText.classList.add('rf-dp');
-    weekDayText.innerHTML = weekDaysDE[weekDay];
+    switch (language) {
+      case 'EN':
+        weekDayText.innerHTML = weekDaysEN[weekDay];
+        break;
+      case 'DE':
+        weekDayText.innerHTML = weekDaysDE[weekDay];
+        break;
+      default:
+        weekDayText.innerHTML = weekDaysEN[weekDay];
+    }
     weekDaysDiv.append(weekDayText);
   }
   const diff = dayDiff(displayDate.month.id, displayDate.year);
@@ -52,7 +63,7 @@ const createWeek = (
     dayContentDiv.append(dayContent);
 
     dayContentDiv.addEventListener('click', () => {
-      let day = parseInt(dayContentDiv.innerHTML);
+      displayDate.day = parseInt(dayContentDiv.innerHTML);
       currentDate = updateDate(displayDate.format, displayDate);
     });
 

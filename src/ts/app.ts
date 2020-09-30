@@ -30,5 +30,6 @@ date(
     endYear: options.yearRange[1],
   },
   options.customTopOffset,
-  options.format
+  options.format,
+  options.language
 );

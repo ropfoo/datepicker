@@ -30,7 +30,8 @@ export const date = (
   dateDiv: HTMLElement | HTMLInputElement | null,
   yearRange: yearRange,
   customTopOffset: number,
-  format: String
+  format: String,
+  language: String
 ) => {
   dateHTML = dateDiv;
   dateHTML instanceof HTMLInputElement && (dateHTML.autocomplete = 'off');
@@ -43,7 +44,7 @@ export const date = (
     format: format,
   };
 
-  generateDateDiv(yearRange, customTopOffset);
+  generateDateDiv(yearRange, customTopOffset, language);
 };
 
 export const updateDate = (format: String, displayDate: displayDate) => {
@@ -73,12 +74,22 @@ const formatDate = (
   }
 };
 
-const generateDateDiv = (yearRange: yearRange, customTopOffset: number) => {
+const generateDateDiv = (
+  yearRange: yearRange,
+  customTopOffset: number,
+  language: String
+) => {
   const dateDiv = document.createElement('div');
 
-  const weekDiv = createWeek(currentDate, displayDate);
-  const monthDiv = createMonths(displayDate, dateDiv, currentDate);
-  const yearDiv = createYears(yearRange, displayDate, currentDate, dateDiv);
+  const weekDiv = createWeek(currentDate, displayDate, language);
+  const monthDiv = createMonths(displayDate, dateDiv, currentDate, language);
+  const yearDiv = createYears(
+    yearRange,
+    displayDate,
+    currentDate,
+    dateDiv,
+    language
+  );
 
   dateDiv.classList.add('datepicker', 'rf-dp');
   dateDiv.id = 'rf-datepicker';
