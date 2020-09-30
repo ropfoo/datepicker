@@ -3,6 +3,7 @@ import toggleVisibility from './utils/toggleVisibility';
 import createWeek from './dom/createWeek';
 import createMonths from './dom/createMonths';
 import createYears, { yearRange } from './dom/createYears';
+import { formatDate } from './utils/formatting';
 
 let dateHTML: HTMLElement | HTMLInputElement | null;
 
@@ -49,29 +50,18 @@ export const date = (
 
 export const updateDate = (format: String, displayDate: displayDate) => {
   if (dateHTML instanceof HTMLInputElement) {
-    console.log(formatDate(format, displayDate));
-
-    dateHTML.value = formatDate(format, displayDate);
+    dateHTML.value = formatDate(
+      format,
+      displayDate.day,
+      displayDate.month.number,
+      displayDate.year
+    );
   } else if (dateHTML instanceof HTMLElement) {
     dateHTML.innerHTML = `${displayDate.day}.${displayDate.month.number}.${displayDate.year}`;
   }
   return {
     date: new Date(displayDate.year, displayDate.month.id, displayDate.day),
   };
-};
-
-const formatDate = (
-  format: String,
-  { day, month, year }: displayDate
-): string => {
-  switch (format) {
-    case 'dd.mm.yy':
-      return `${day}.${month.number}.${year}`;
-    case 'yy.mm.dd':
-      return `${year}.${month.number}.${day}`;
-    default:
-      return `${day}.${month.number}.${year}`;
-  }
 };
 
 const generateDateDiv = (

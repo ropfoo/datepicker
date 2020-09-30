@@ -13,11 +13,12 @@ type options = {
   format: String;
 };
 
+// default options
 let options: options = {
   yearRange: [1930, 2020],
   customTopOffset: 1000,
   language: 'EN',
-  format: 'dd.mm.yy',
+  format: 'd.m.yy',
 };
 
 dateDiv?.dataset.datepicker &&
