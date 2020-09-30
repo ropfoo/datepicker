@@ -26,12 +26,22 @@ To configure the datepicker, add the HTML parameter _data-datepicker_
 />
 ```
 
-| Attribute           | Description                                                      | Example                |
-| ------------------- | ---------------------------------------------------------------- | ---------------------- |
-| **yearRange**       | the range of years the user can select from                      | _yearRange: 2000-2005_ |
-| **language**        | language of the datepicker. Currently supporting: _EN_, _DE_     | _language: EN_         |
-| **customTopOffset** | to add some offset to the input field                            | _customTopOffset: 30_  |
-| **format**          | format of the date. Currently supporting: _dd.mm.yy_, _yy.mm.dd_ | _format: dd.mm.yy_     |
+| Attribute           | Description                                 | Example                |
+| ------------------- | ------------------------------------------- | ---------------------- |
+| **yearRange**       | the range of years the user can select from | _yearRange: 2000-2005_ |
+| **language**        | language of the datepicker (_EN_, _DE_)     | _language: EN_         |
+| **customTopOffset** | to add some offset to the input field       | _customTopOffset: 30_  |
+| **format**          | format of the date                          | _format: dd.mm.yy_     |
+
+#### Formatting
+
+|           | Format | Output                |
+| --------: | :----: | --------------------- |
+|   **Day** |   d    | 1,2,3...10,11,12      |
+|           |   dd   | 01,02,03...10,11,12   |
+| **Month** |   m    | 1,2,3...10,11,12      |
+|           |   m    | 01,02,03...10,11,12   |
+|  **Year** |   yy   | 1992,1993...2019,2020 |
 
 More features coming soon!
 
