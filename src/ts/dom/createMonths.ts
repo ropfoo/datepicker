@@ -1,7 +1,7 @@
-import { displayDate, currentDate } from '../date';
+import { displayDate, currentDate } from '../datepicker';
 import { months } from '../utils/months';
 import createWeek from './createWeek';
-import { updateDate } from '../date';
+import { updateDate } from '../datepicker';
 
 /**
  * Switches between months
@@ -12,12 +12,13 @@ import { updateDate } from '../date';
  * @param {currentDate} currentDate - object containing the current date
  */
 const switchMonth = (
+  target: Element | HTMLElement | HTMLInputElement | null,
   direction: string,
   monthTitle: any,
   dateDiv: any,
   displayDate: displayDate,
   currentDate: currentDate,
-  language: String
+  language: string
 ) => {
   let currentMonthNum = displayDate.month.id;
   dateDiv.lastChild.remove();
@@ -34,16 +35,20 @@ const switchMonth = (
   }
   monthTitle.innerHTML = getMonthLanguage(language, displayDate);
   displayDate.month = months[currentMonthNum];
-  dateDiv.append(createWeek(currentDate, displayDate, language));
-  currentDate = updateDate(displayDate.format, displayDate);
+  dateDiv.append(createWeek(target, currentDate, displayDate, language));
+  currentDate = updateDate(target, displayDate.format, displayDate);
 };
 
 /**
  * Returns month in selected languge
- * @param {String} language
+ * @param {string} language
  * @param {displayDate} displayDate
+ * @returns {string} - month name in correct language
  */
-const getMonthLanguage = (language: String, displayDate: displayDate) => {
+const getMonthLanguage = (
+  language: string,
+  displayDate: displayDate
+): string => {
   switch (language) {
     case 'EN':
       return displayDate.month.nameEN;
@@ -55,10 +60,11 @@ const getMonthLanguage = (language: String, displayDate: displayDate) => {
 };
 
 const createMonths = (
+  target: Element | HTMLElement | HTMLInputElement | null,
   displayDate: displayDate,
   dateDiv: any,
   currentDate: currentDate,
-  language: String
+  language: string
 ): HTMLDivElement => {
   // Month
   const monthDiv = document.createElement('div');
@@ -66,7 +72,9 @@ const createMonths = (
   const monthTitle = document.createElement('p');
   monthTitle.classList.add('rf-dp');
 
-  const monthContent = document.createTextNode(displayDate.month.nameDE);
+  const monthContent = document.createTextNode(
+    getMonthLanguage(language, displayDate)
+  );
   monthTitle.append(monthContent);
 
   // Next Month
@@ -77,6 +85,7 @@ const createMonths = (
   nextMonthBtn.append(nextMonthBtnContent);
   nextMonthBtn.addEventListener('click', () => {
     switchMonth(
+      target,
       'next',
       monthTitle,
       dateDiv,
@@ -94,6 +103,7 @@ const createMonths = (
   prevMonthBtn.classList.add('datepicker__month-section__btn');
   prevMonthBtn.addEventListener('click', () => {
     switchMonth(
+      target,
       'prev',
       monthTitle,
       dateDiv,

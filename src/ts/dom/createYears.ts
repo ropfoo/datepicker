@@ -1,5 +1,5 @@
 import createWeek from './createWeek';
-import { displayDate, updateDate, currentDate } from '../date';
+import { displayDate, updateDate, currentDate } from '../datepicker';
 
 export type yearRange = {
   startYear: number;
@@ -9,17 +9,19 @@ export type yearRange = {
 /**
  * Adds the year selection dropdown div to the calendar
  * @param {yearRange} yearRange - range of years being selectable
- * @param displayDate
- * @param currentDate - currently active date
+ * @param {displayDate} displayDate
+ * @param {currentDate} currentDate - currently active date
  * @param {any} dateDiv - DOM date div
- * @returns {HTMLDivElement} year dropdown
+ * @param {string} language - selected language
+ * @returns {HTMLDivElement} - year dropdown
  */
 const createYears = (
+  target: Element | HTMLElement | HTMLInputElement | null,
   yearRange: yearRange,
   displayDate: displayDate,
   currentDate: currentDate,
   dateDiv: HTMLElement | HTMLInputElement | null,
-  language: String
+  language: string
 ): HTMLDivElement => {
   // create div wrapper element
   const yearDiv = document.createElement('div');
@@ -47,8 +49,8 @@ const createYears = (
       dateDiv.lastChild && dateDiv.lastChild.remove();
       const element = e.currentTarget as HTMLInputElement;
       displayDate.year = parseInt(element.value);
-      dateDiv.append(createWeek(currentDate, displayDate, language));
-      currentDate = updateDate(displayDate.format, displayDate);
+      dateDiv.append(createWeek(target, currentDate, displayDate, language));
+      currentDate = updateDate(target, displayDate.format, displayDate);
       // adds 'rf-dp' class to all option elements
       Array.from(yearDropdown.children).forEach((option: any) => {
         option.classList.add('rf-dp');

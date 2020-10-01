@@ -1,36 +1,48 @@
 import '../scss/main.scss';
-import { date } from './date';
+import { datepicker } from './datepicker';
 import getJSONfromHTMLdata from './utils/getJSONfromHTMLdata';
 
-const dateDiv: HTMLElement | HTMLInputElement | null = document.getElementById(
-  'datepicker'
-);
+const dateElements = document.querySelectorAll('.dp-element');
+dateElements.forEach((element: any) => {
+  const target: Element | HTMLElement | HTMLInputElement | null = element;
 
-type options = {
-  yearRange: number[];
-  customTopOffset: number;
-  language: String;
-  format: String;
-};
+  type options = {
+    yearRange: number[];
+    customTopOffset: number;
+    language: string;
+    format: string;
+  };
 
-// default options
-let options: options = {
-  yearRange: [1930, 2020],
-  customTopOffset: 1000,
-  language: 'EN',
-  format: 'd.m.yy',
-};
+  // default options
+  let options: options = {
+    yearRange: [new Date().getFullYear() - 110, new Date().getFullYear()],
+    customTopOffset: 10,
+    language: 'EN',
+    format: 'd.m.yy',
+  };
 
-dateDiv?.dataset.datepicker &&
-  (options = JSON.parse(getJSONfromHTMLdata(dateDiv?.dataset.datepicker)));
+  // user options
+  if (target instanceof HTMLElement) {
+    target?.dataset.datepicker &&
+      (options = JSON.parse(getJSONfromHTMLdata(target?.dataset.datepicker)));
+  }
 
-date(
-  dateDiv,
-  {
-    startYear: options.yearRange[0],
-    endYear: options.yearRange[1],
-  },
-  options.customTopOffset,
-  options.format,
-  options.language
-);
+  // check if year range exists
+  !options.yearRange &&
+    (options.yearRange = [
+      new Date().getFullYear() - 110,
+      new Date().getFullYear(),
+    ]);
+
+  // create datepicker
+  datepicker(
+    target,
+    {
+      startYear: options.yearRange[0],
+      endYear: options.yearRange[1],
+    },
+    options.customTopOffset,
+    options.format,
+    options.language
+  );
+});

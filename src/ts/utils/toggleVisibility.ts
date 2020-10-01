@@ -4,7 +4,6 @@
  * @param {boolean} toggleOn - toggled true or false
  * @param {number} duration - animation duration
  */
-
 const toggleVisibility = (
   element: HTMLDivElement,
   toggleOn: boolean,

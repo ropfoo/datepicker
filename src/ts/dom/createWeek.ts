@@ -1,5 +1,6 @@
 import getDaysInMonth from '../utils/getDaysInMonth';
-import { updateDate, displayDate, currentDate } from '../date';
+import { updateDate, displayDate, currentDate } from '../datepicker';
+import { weekDaysDE, weekDaysEN } from '../utils/weekdays';
 
 /**
  * return number of day
@@ -8,16 +9,24 @@ import { updateDate, displayDate, currentDate } from '../date';
  * @param {number} month
  * @param {number} year
  */
-const dayDiff = (month: number, year: number) => {
+const dayDiff = (month: number, year: number): number => {
   return new Date(year, month, 1).getDay() === 0
     ? 7
     : new Date(year, month, 1).getDay();
 };
 
+/**
+ * Adds the weekday grid div to the calendar
+ * @param {currentDate} currentDate - currently active date
+ * @param {displayDate} displayDate
+ * @param {string} language - selected language
+ * @returns {HTMLDivElement} - weekday section div
+ */
 const createWeek = (
+  target: Element | HTMLElement | HTMLInputElement | null,
   currentDate: currentDate,
   displayDate: displayDate,
-  language: String
+  language: string
 ): HTMLDivElement => {
   const weekDivWrapper = document.createElement('div');
 
@@ -26,9 +35,6 @@ const createWeek = (
 
   const weekDaysDiv = document.createElement('div');
   weekDaysDiv.classList.add('datepicker__weekday-name-section', 'rf-dp');
-
-  const weekDaysDE = ['Mo', 'Di', 'Mi', 'Do', 'Fr', 'Sa', 'So'];
-  const weekDaysEN = ['Mo', 'Tue', 'Wed', 'Thu', 'Fr', 'Sa', 'Su'];
 
   for (let weekDay = 0; weekDay < 7; weekDay++) {
     const weekDayText = document.createElement('p');
@@ -64,7 +70,7 @@ const createWeek = (
 
     dayContentDiv.addEventListener('click', () => {
       displayDate.day = parseInt(dayContentDiv.innerHTML);
-      currentDate = updateDate(displayDate.format, displayDate);
+      currentDate = updateDate(target, displayDate.format, displayDate);
     });
 
     if (dayCounter <= diff) {

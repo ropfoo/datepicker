@@ -1,20 +1,20 @@
 /**
  * Removes spaces from Strings (e.g. " Text" => "Text")
- * @param {String} value - Input String that need to be formatted (e.g. " Text")
- * @returns {String} - Formatted String (e.g. "Text")
+ * @param {string} value - Input string that need to be formatted (e.g. " Text")
+ * @returns {string} - Formatted string (e.g. "Text")
  */
-export const removeSpaceFromString = (value: String): String => {
+export const removeSpaceFromString = (value: string): string => {
   return value.replace(/\s/g, '');
 };
 
 /**
  * Creates Array based on Strings separated by dash
- * @param {String} value - Strings separated by dash (e.g. "1930-2005")
- * @returns {String[]} - Array created out of dash separated elements (e.g. ["1930", "2005"])
+ * @param {string} value - Strings separated by dash (e.g. "1930-2005")
+ * @returns {string[]} - Array created out of dash separated elements (e.g. ["1930", "2005"])
  */
-export const convertStringToArrayByDash = (value: String): String[] => {
+export const convertStringToArrayByDash = (value: string): string[] => {
   const dataArray: any = value.toString().split('-');
-  const formattedDataArray: String[] = dataArray.map((element: String) =>
+  const formattedDataArray: string[] = dataArray.map((element: string) =>
     removeSpaceFromString(element.toString())
   );
   return formattedDataArray;
@@ -23,9 +23,9 @@ export const convertStringToArrayByDash = (value: String): String[] => {
 /**
  * Adds a 0 in front of a number between 0 and 10
  * @param {number} number
- * @returns {String} - Two digit Number as String
+ * @returns {string} - Two digit Number as string
  */
-export const addZeroToNumber = (number: number): String => {
+export const addZeroToNumber = (number: number): string => {
   return number > 0 && number < 10 ? `0${number}` : `${number}`;
 };
 
@@ -38,7 +38,7 @@ export const addZeroToNumber = (number: number): String => {
  * @returns {string} - formatted Date
  */
 export const formatDate = (
-  format: String,
+  format: string,
   day: number,
   month: number,
   year: number
