@@ -9,10 +9,10 @@
 ## Simple Usage
 
 - import the datepicker.js file from [/dist](/dist) folder
-- assign the id _datepicker_ to the element you want to use it on
+- add the class _datepicker_ on all the elements you want to use it on
 
 ```html
-<input id="datepicker" />
+<input class="dp-element" />
 ```
 
 ### Options
@@ -21,7 +21,7 @@ To configure the datepicker, add the HTML parameter _data-datepicker_
 
 ```html
 <input
-  id="datepicker"
+  class="dp-element"
   data-datepicker="yearRange: 1930-2020, format: dd.mm.yy"
 />
 ```
